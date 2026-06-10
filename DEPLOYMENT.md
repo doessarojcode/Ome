@@ -99,6 +99,30 @@ git push origin main
 
 4. **Deploy** - Automatic on push
 
+### Render (Free tier)
+
+Render can deploy both services from the same repo with a single `render.yaml` manifest.
+
+1. Push your repository to GitHub if it is not already pushed.
+2. Create a Render account and connect your GitHub repository.
+3. Import the repository in Render and allow it to use the `render.yaml` file at the repo root.
+
+The `render.yaml` file included in this repo defines:
+- `ome-backend` from `server/`
+- `ome-frontend` from `client/`
+
+Expected Render service settings:
+- Backend build command: `npm install`
+- Backend start command: `npm start`
+- Frontend build command: `npm install && npm run build`
+- Frontend start command: `npm run preview -- --host 0.0.0.0 --port 5173`
+
+Environment variables to verify or update in Render:
+- Backend `CLIENT_URL` → `https://<your-frontend-service>.onrender.com`
+- Frontend `VITE_SOCKET_URL` → `https://<your-backend-service>.onrender.com`
+
+If you prefer custom service names, update the placeholder hostnames in the Render dashboard after deploy.
+
 ### DigitalOcean (Both)
 
 1. **Create App Platform project**

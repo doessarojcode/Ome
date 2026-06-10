@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: ome-backend
+    env: node
+    plan: free
+    branch: main
+    path: server
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        value: https://ome-frontend.onrender.com
+
+  - type: web
+    name: ome-frontend
+    env: node
+    plan: free
+    branch: main
+    path: client
+    buildCommand: npm install && npm run build
+    startCommand: npm run preview -- --host 0.0.0.0 --port 5173
+    autoDeploy: true
+    envVars:
+      - key: VITE_SOCKET_URL
+        value: https://ome-backend.onrender.com
